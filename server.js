@@ -22,15 +22,7 @@ var server = http.createServer(function (request, response) {
   /******** 从这里开始看，上面不要看 ************/
 
   console.log('HTTP 路径为\n' + path)
-  if (path === '/style.css') {
-    response.setHeader('Content-Type', 'text/css; charset=utf-8')
-    response.write(string)
-    response.end()
-  } else if (path === '/main.js') {
-    response.setHeader('Content-Type', 'application/javascript; charset=utf-8')
-    response.write(string)
-    response.end()
-  } else if (path === '/') {
+  if (path === '/') {
     var string = fs.readFileSync('./index.html', 'utf8')
     var amount = fs.readFileSync('./db', 'utf8')
     string = string.replace('&&&amount&&&', amount)
@@ -38,7 +30,7 @@ var server = http.createServer(function (request, response) {
     response.write(string)
     response.end()
   } else if (path === '/pay' && method.toUpperCase() === 'POST') {
-    var amount = fs.readFileSync('./bd', 'utf8')
+    var amount = fs.readFileSync('./db', 'utf8')
     var newAmount = amount - 1
     if (Math.random() > 0.5) {
       fs.writeFileSync('./db', newAmount)

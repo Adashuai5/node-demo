@@ -1,19 +1,22 @@
 <title>首页</title>
 <link rel="stylesheet" href="/style.css">
 <h5>您的余额是
-    <span id="amount">&&&amount&&&</span>
+  <span id="amount">&&&amount&&&</span>
 </h5>
 <button id="button">打钱</button>
 <script>
-button.addEventListener('click',(e)=>{
-  let image = document.createElement('img')
-  image.src = '/pay'
-  image.onload= function(){
-    alert('打钱成功')
-    amount.innerText = amount.innerText-1;
+  button.addEventListener('click', (e) => {
+    let script = document.createElement('script')
+    script.src = '/pay'
+    //一定要把script放入body中，才有效
+    document.body.appendChild(script)
+  
+  script.onload= function(e){
+    e.currentTarget.remove()
   }
-  image.onerror = function(){
+  script.onerror = function () {
     alert('打钱失败')
+    e.currentTarget.remove()
   }
 })
 </script>

@@ -1,5 +1,4 @@
 <title>首页</title>
-<link rel="stylesheet" href="/style.css">
 <h5>您的余额是
   <span id="amount">&&&amount&&&</span>
 </h5>
@@ -7,16 +6,21 @@
 <script>
   button.addEventListener('click', (e) => {
     let script = document.createElement('script')
-    script.src = '/pay'
-    //一定要把script放入body中，才有效
+    let functionName = 'ada' + parseInt(Math.random() * 10000000, 10)
+    window[functionName] = function () { // 每次请求之前搞出一个随机的函数
+      amount.innerText = amount.innerText - 1
+    }
+    script.src = 'http://jack.com:8002/pay?callback=' + functionName
     document.body.appendChild(script)
-  
-  script.onload= function(e){
-    e.currentTarget.remove()
-  }
-  script.onerror = function () {
-    alert('打钱失败')
-    e.currentTarget.remove()
-  }
-})
+    script.onload = function (e) { // 状态码是 200~299 则表示成功
+      alert('success')
+      e.currentTarget.remove()
+      delete window[functionName] // 请求完了就干掉这个随机函数
+    }
+    script.onerror= function (e) { // 状态码大于等于 400 则表示失败
+      alert('fail')
+      e.currentTarget.remove()
+      delete window[functionName] // 请求完了就干掉这个随机函数
+    }
+  })
 </script>

@@ -3,6 +3,6 @@
 # 理解JSONP
 
 相关笔记：
-[Web服务器](https://zhuanlan.zhihu.com/p/41605733)
-[理解JSONP 上](https://zhuanlan.zhihu.com/p/41590983)
+[Web服务器](https://zhuanlan.zhihu.com/p/41605733)/n
+[理解JSONP 上](https://zhuanlan.zhihu.com/p/41590983)/n
 [理解JSONP 下](https://zhuanlan.zhihu.com/p/41591178)

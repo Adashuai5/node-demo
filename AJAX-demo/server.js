@@ -30,7 +30,7 @@ var server = http.createServer(function (request, response) {
         response.end()
     } //注意这里是 /main.js 而不是 ./main.js，因为HTTP请求永远是绝对路径
     else if (path === '/main.js') {
-        var string = fs.readFileSync('./index.html', 'utf8')
+        var string = fs.readFileSync('./main.js', 'utf8')
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
         response.write(string)

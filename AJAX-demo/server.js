@@ -21,17 +21,25 @@ var server = http.createServer(function (request, response) {
 
     /******** 从这里开始看，上面不要看 ************/
 
-    console.log('HTTP 路径为\n' + path)
+    console.log('含查询字符串的路径\n' + pathWithQuery)
     if (path === '/') {
         var string = fs.readFileSync('./index.html', 'utf8')
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/html; charset=utf-8')
         response.write(string)
         response.end()
+    } //注意这里是 /main.js 而不是 ./main.js，因为HTTP请求永远是绝对路径
+    else if (path === '/main.js') {
+        var string = fs.readFileSync('./index.html', 'utf8')
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
+        response.write(string)
+        response.end()
     } else {
         response.statusCode = 404
         response.setHeader('Content-Type', 'text/html; charset=utf-8')
-        response.write(string)
+        //注意这边不能是(string)
+        response.write('找不到服务器')
         response.end()
     }
 

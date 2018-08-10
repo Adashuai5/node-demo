@@ -35,6 +35,18 @@ var server = http.createServer(function (request, response) {
         response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
         response.write(string)
         response.end()
+    } else if (path === '/ada') {
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'text/xml; charset=utf-8')
+        response.write(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <note>
+          <to>Tove</to>
+          <from>Jani</from>
+          <heading>Reminder</heading>
+          <body>Don't forget me this weekend!</body>
+        </note>`)
+        response.end()
     } else {
         response.statusCode = 404
         response.setHeader('Content-Type', 'text/html; charset=utf-8')

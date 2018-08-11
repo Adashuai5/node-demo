@@ -38,13 +38,15 @@ var server = http.createServer(function (request, response) {
     } else if (path === '/ada') {
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/json; charset=utf-8')
+        response.setHeader('Access-Control-Allow-Origin','http://ada.com:8001')
+        //变XML为JSON，key和value都可以替换成自己喜欢的
         response.write(`
         {
             "note":{
-              "to": "reader",
-              "from": "Ada",
-              "heading": "greet",
-              "content": "hello word!"
+              "to":"reader",
+              "from":"Ada",
+              "heading":"greet",
+              "content":"hello word!"
             }
         }`)
         response.end()

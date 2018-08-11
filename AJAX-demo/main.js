@@ -22,6 +22,6 @@ myButton.addEventListener('click', (e) => {
         }
     }
     //初始化请求，参数为:method,url,async(异步状态下才是AJAX),user,password(后三个参数一般默认)
-    request.open('GET', '/ada')
+    request.open('GET', 'http://jack.com:8002/ada')
     request.send()
 })

@@ -7,15 +7,26 @@ window.jQuery = function (nodeOrSelector) {
 
 window.jQuery.ajax = function (options) {
     //给参数一个选项
+    let url
+    if(arguments.length === 1){
+        url = options.url
+    }else if(arguments.length === 2){
+        url = arguments[0]
+        options = arguments[1]
+    }
     let method = options.method
-    let url = options.url
     let body = options.body
     let succseeFn = options.succseeFn
     let failFn = options.failFn
-
+    let headers = options.headers
+    
     let request = new XMLHttpRequest()
     //初始化请求
     request.open(method, url)
+    for (let key in headers) {
+        let value = headers[key]
+        request.setRequestHeader(key, value)
+    }
     request.onreadystatechange = () => {
         if (request.readyState === 4) {
             if (request.status >= 200 && request.status < 300) {
@@ -35,12 +46,16 @@ myButton.addEventListener('click', (e) => {
     $.ajax({
         url: '/ada',
         method: 'post',
-        body: 'a=1&b=2',
-        succseeFn: (responseText) => {
-            console.log('s')
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'ada': '18'
         },
-        failFn: (request) => {
-            console.log('f')
+        body: 'a=1&b=2',
+        succseeFn: (x) => {
+            console.log(x)
+        },
+        failFn: (x) => {
+            console.log(x)
         }
     })
 })

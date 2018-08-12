@@ -5,22 +5,9 @@ window.jQuery = function (nodeOrSelector) {
     return nodes
 }
 
-window.jQuery.ajax = function ({url,method,body,headers,succseeFn,failFn}) {
-    //给参数一个选项
-    // let url
-    // if(arguments.length === 1){
-    //     url = options.url
-    // }else if(arguments.length === 2){
-    //     url = arguments[0]
-    //     options = arguments[1]
-    // }
-    // let method = options.method
-    // let body = options.body
-    // let succseeFn = options.succseeFn
-    // let failFn = options.failFn
-    // let headers = options.headers
-    
-    let request = new XMLHttpRequest()
+window.jQuery.ajax = function ({url,method,body,headers}) {
+    return new Promise(function(resolve,reject){
+        let request = new XMLHttpRequest()
     //初始化请求
     request.open(method, url)
     for (let key in headers) {
@@ -30,13 +17,14 @@ window.jQuery.ajax = function ({url,method,body,headers,succseeFn,failFn}) {
     request.onreadystatechange = () => {
         if (request.readyState === 4) {
             if (request.status >= 200 && request.status < 300) {
-                succseeFn.call(undefined, request.responseText)
+                resolve.call(undefined, request.responseText)
             } else if (request.status >= 400) {
-                failFn.call(undefined, request)
+                reject.call(undefined, request)
             }
         }
     }
     request.send(body)
+    })
 }
 
 window.$ = window.jQuery
@@ -49,13 +37,16 @@ myButton.addEventListener('click', (e) => {
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
             'ada': '18'
-        },
-        body: 'a=1&b=2',
-        succseeFn: (x) => {
-            console.log(x)
-        },
-        failFn: (x) => {
-            console.log(x)
         }
-    })
+    }).then(
+        //成功后执行的代码
+        (responseText)=>{console.log(responseText);return '处理成功'}, 
+        //失败后执行的代码
+        (request)=>{console.log(request);return '处理失败'}
+      ).then(
+        //上一次成功后的return
+        (responseText)=>{console.log(responseText)},
+        //上一次失败后的return
+        (request)=>{console.log(request)}
+      )
 })

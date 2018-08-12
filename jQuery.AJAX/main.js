@@ -5,7 +5,14 @@ window.jQuery = function (nodeOrSelector) {
     return nodes
 }
 
-window.jQuery.ajax = function (url, method, body, succseeFn, failFn) {
+window.jQuery.ajax = function (options) {
+    //给参数一个选项
+    let method = options.method
+    let url = options.url
+    let body = options.body
+    let succseeFn = options.succseeFn
+    let failFn = options.failFn
+
     let request = new XMLHttpRequest()
     //初始化请求
     request.open(method, url)
@@ -24,14 +31,16 @@ window.jQuery.ajax = function (url, method, body, succseeFn, failFn) {
 window.$ = window.jQuery
 
 myButton.addEventListener('click', (e) => {
-    $.ajax(
-        '/ada',
-        'post',
-        'a=1&b=2',
-        (responseText) => {
+    //以对象的形式传参数
+    $.ajax({
+        url: '/ada',
+        method: 'post',
+        body: 'a=1&b=2',
+        succseeFn: (responseText) => {
             console.log('s')
         },
-        (request) => {
+        failFn: (request) => {
             console.log('f')
-        })
+        }
+    })
 })

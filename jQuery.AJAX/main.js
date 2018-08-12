@@ -5,20 +5,20 @@ window.jQuery = function (nodeOrSelector) {
     return nodes
 }
 
-window.jQuery.ajax = function (options) {
+window.jQuery.ajax = function ({url,method,body,headers,succseeFn,failFn}) {
     //给参数一个选项
-    let url
-    if(arguments.length === 1){
-        url = options.url
-    }else if(arguments.length === 2){
-        url = arguments[0]
-        options = arguments[1]
-    }
-    let method = options.method
-    let body = options.body
-    let succseeFn = options.succseeFn
-    let failFn = options.failFn
-    let headers = options.headers
+    // let url
+    // if(arguments.length === 1){
+    //     url = options.url
+    // }else if(arguments.length === 2){
+    //     url = arguments[0]
+    //     options = arguments[1]
+    // }
+    // let method = options.method
+    // let body = options.body
+    // let succseeFn = options.succseeFn
+    // let failFn = options.failFn
+    // let headers = options.headers
     
     let request = new XMLHttpRequest()
     //初始化请求

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            border:1px solid red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .wrapper {
+            border: 1px solid gray;
+            padding: 20px;
+        }
+        .wrapper #row{
+            margin: 10px;
+        }
+        .wrapper #row>label{
+            display: inline-block;
+            min-width: 4em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>注册</h1>
+        <form id="signUpForm">
+            <div id="row">
+                <label>邮箱</label>
+                <input type="text" name="email">
+            </div>
+            <div id="row">
+                <label>密码</label>
+                <input type="text" name="password">
+            </div>
+            <div id="row">
+                <label>密码确认</label>
+                <input type="text" name="password_confirmation">
+            </div>
+            <div id="row">
+                <input type="submit" value="注册">
+            </div>
+        </form>
+    </div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    let hash = {}
+    $('#signUpForm').on('submit', (e) => {
+        e.preventDefault()
+        let need = ['email', 'password', 'password_confirmation']
+        need.forEach((name) => {
+            let value = $('#signUpForm').find(`[name=${name}]`).val()
+            hash[name] = value
+        })
+        $.post('/sign_up', hash)
+            .then((response) => {
+                    console.log(response)
+                }, () => {
+                    console.log()
+                })
+    })
+</script>
+
+</html>

@@ -42,7 +42,7 @@ var server = http.createServer(function (request, response) {
                 let parts = string.split('=') // ['email','11']
                 let key = parts[0]
                 let value = parts[1]
-                hash[key] = value // hash['email'] = '1'
+                hash[key] = decodeURIComponent(value) // hash['email'] = '1'
             })
             let { email, password, password_confirmation } = hash
             if(email.indexOf('@') === -1){
@@ -57,6 +57,15 @@ var server = http.createServer(function (request, response) {
                 response.statusCode = 400
                 response.write('password not match')                
             }else {
+                let users = fs.readFileSync('./db/users', 'utf8')
+                try{
+                    users = JSON.parse(users) // 将 JSON 字符串解析为对象,才能push
+                }catch(exception){
+                    users = []
+                } 
+                users.push({email: email, password: password})
+                let usersString = JSON.stringify(users) // 将 users 再变为字符串，才能存进数据库
+                fs.writeFileSync('./db/users', usersString) // 将 usersString 存进数据库
                 response.statusCode = 200
             }
             response.end()

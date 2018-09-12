@@ -62,11 +62,29 @@ var server = http.createServer(function (request, response) {
                     users = JSON.parse(users) // 将 JSON 字符串解析为对象,才能push
                 }catch(exception){
                     users = []
+                }
+                let inUse = false
+                for (let i = 0; i < users.length ; i++ ) {
+                    let user = users[i]
+                    if(user.email === email) {
+                        inUse = true
+                        break;
+                    }
                 } 
-                users.push({email: email, password: password})
-                let usersString = JSON.stringify(users) // 将 users 再变为字符串，才能存进数据库
-                fs.writeFileSync('./db/users', usersString) // 将 usersString 存进数据库
-                response.statusCode = 200
+                if(inUse) {
+                    response.statusCode = 400
+                    response.setHeader('Content-Type', 'application/json; charset=utf-8')
+                    response.write(`{
+                        "errors": {
+                            "email": "inUse"
+                        }
+                    }`) 
+                }else { 
+                    users.push({email: email, password: password})
+                    let usersString = JSON.stringify(users) // 将 users 再变为字符串，才能存进数据库
+                    fs.writeFileSync('./db/users', usersString) // 将 usersString 存进数据库
+                    response.statusCode = 200
+                }
             }
             response.end()
         })

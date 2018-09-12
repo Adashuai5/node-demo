@@ -108,6 +108,9 @@
                 if (errors.email && errors.email === "invalid") {
                     $form.find('[name="email"]').siblings('.error')
                         .text('邮箱格式错误')
+                } else if (errors.email && errors.email === "inUse"){
+                    $form.find('[name="email"]').siblings('.error')
+                        .text('该邮箱已注册')
                 }
             })
     })

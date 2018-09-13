@@ -87,7 +87,7 @@
         }
         $.post('/sign_in', hash)
             .then((response) => {
-                window.location.href = '/'
+                window.location.href = '/my'
             }, (request) => {
                 let { errors } = request.responseJSON
                 if (errors.email && errors.email === "invalid") {

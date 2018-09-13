@@ -22,13 +22,7 @@ var server = http.createServer(function (request, response) {
     /******** 从这里开始看，上面不要看 ************/
 
     console.log('含查询字符串的路径\n' + pathWithQuery)
-    if (path === '/') {
-        let string = fs.readFileSync('./index.html', 'utf8')
-        response.statusCode = 200
-        response.setHeader('Content-Type', 'text/html; charset=utf-8')
-        response.write(string)
-        response.end()
-    } else if (path === '/my'){
+    if (path === '/'){
         let string = fs.readFileSync('./index.html', 'utf8')
         if (request.headers.cookie !== undefined) {
             let cookies = request.headers.cookie.split('; ') // 多个 cookie 的分离

@@ -31,7 +31,8 @@ var server = http.createServer(function (request, response) {
                 let parts = cookies[i].split('=')
                 let key = parts[0]
                 let value = parts[1]
-                hash[key] = value 
+                hash[key] = value
+                console.log(value) 
                 }
             let email = hash.sign_in_email
             let users = fs.readFileSync('./db/users', 'utf8')
@@ -50,7 +51,6 @@ var server = http.createServer(function (request, response) {
                 string = string.replace('__password__', '不知道')
             }
         }
-        
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/html; charset=utf-8')
         response.write(string)
@@ -69,7 +69,7 @@ var server = http.createServer(function (request, response) {
                 let parts = string.split('=') // ['email','11']
                 let key = parts[0]
                 let value = parts[1]
-                hash[key] = decodeURIComponent(value) // hash['email'] = '1'
+                hash[key] = decodeURIComponent(value) // hash['email'] = '11'
             })
             let { email, password, password_confirmation } = hash
             if(email.indexOf('@') === -1){

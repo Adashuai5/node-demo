@@ -8,6 +8,10 @@ if (!port) {
     process.exit(1)
 }
 
+let sessions = {
+
+}
+
 var server = http.createServer(function (request, response) {
     var parsedUrl = url.parse(request.url, true)
     var pathWithQuery = request.url
@@ -32,9 +36,12 @@ var server = http.createServer(function (request, response) {
                 let key = parts[0]
                 let value = parts[1]
                 hash[key] = value
-                console.log(value) 
                 }
-            let email = hash.sign_in_email
+            let email
+            let mySessions = sessions[hash.sessionId]
+            if(mySessions){
+                email = mySessions.sign_in_email
+            }
             let users = fs.readFileSync('./db/users', 'utf8')
             users = JSON.parse(users)
             let foundUser
@@ -44,7 +51,6 @@ var server = http.createServer(function (request, response) {
                     break;
                 }
             }
-            console.log(foundUser)
             if(foundUser){
                 string = string.replace('__password__', foundUser.password)
             }else{
@@ -155,8 +161,9 @@ var server = http.createServer(function (request, response) {
                     }
                 }
                 if(found) {
-                    // Set-Cookie: <cookie-name>=<cookie-value>
-                    response.setHeader('Set-Cookie',`sign_in_email = ${email}`)
+                    let sessionId = Math.random()*10000000
+                    sessions[sessionId] = {sign_in_email:email}
+                    response.setHeader('Set-Cookie',`sessionId = ${sessionId}`)
                     response.statusCode = 200
                 }else{
                     response.statusCode = 401

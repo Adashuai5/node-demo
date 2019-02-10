@@ -1,0 +1,24 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "相关笔记：  \r [Web服务器](https://zhuanlan.zhihu.com/p/41605733)  \r [理解JSONP 上](https://zhuanlan.zhihu.com/p/41590983)  \r [理解JSONP 下](https://zhuanlan.zhihu.com/p/41591178)  \r [AJAX是什么鬼](https://zhuanlan.zhihu.com/p/41810402)  \r [实现一个AJAX](https://zhuanlan.zhihu.com/p/41863846)\r [HTTP 学习之 Cookie](https://zhuanlan.zhihu.com/p/44615788)",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "koa": "^2.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adashuai5/node-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adashuai5/node-demo/issues"
+  },
+  "homepage": "https://github.com/Adashuai5/node-demo#readme"
+}

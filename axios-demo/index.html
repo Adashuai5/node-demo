@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            书名：《__name__》 数量：
+            <span id="number">__number__</span></div></div></body></html></span>
+        </div>
+        <div>
+            <button id="addOne">+1</button>
+            <button id="minusOne">-1</button>
+            <button id="reset">0</button>
+        </div>
+    </div>
+    <script>
+        axios.interceptors.response.use(function (response) {
+            let {
+                config: {
+                    method,
+                    url,
+                    data
+                }
+            } = response
+            if (url === '/books/1' && method === 'get') {
+                response.data = {
+                    name: 'JavaScript 高级程序设计',
+                    number: 2,
+                    id: 1
+                }
+            }
+            return response
+        })
+
+        axios.get('/books/1')
+            .then(({
+                data
+            }) => {
+                let originalHtml = $('#app').html()
+                let newHtml = originalHtml.replace('__name__', data.name)
+                    .replace('__number__', data.number)
+                $('#app').html(newHtml)
+            })
+
+        $('#app').on('click', '#addOne', function () {
+            var oldNumber = $('#number').text()
+            console.log(oldNumber)
+            var newNumber = oldNumber - 0 + 1
+            $('#number').text(newNumber)
+        })
+        $('#app').on('click', '#minusOne', function () {
+            var oldNumber = $('#number').text()
+            var newNumber = oldNumber - 0 - 1
+            $('#number').text(newNumber)
+        })
+        $('#app').on('click', '#reset', function () {
+            var newNumber = 0
+            $('#number').text(newNumber)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,17 @@
+#!/usr/bin/env node
+const program = require("commander");
+const pkg = require("./package.json");
+program.version(pkg.version);
+
+let cacheTime = 31536000;
+
+program.option("-c, --cache", "set Cache-Control time longer(day)");
+const argv = parseInt(process.argv[3]);
+if (process.argv[2] === "-c" && parseInt(process.argv[3]) >= 0) {
+  cacheTime = argv * 24 * 3600;
+}
+program.parse(process.argv);
+
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import * as fs from "fs";
@@ -36,7 +50,7 @@ server.on("request", (request: IncomingMessage, response: ServerResponse) => {
         response.end("服务器繁忙");
       }
     } else {
-      response.setHeader("Cache-Control", "public, max-age=31536000");
+      response.setHeader("Cache-Control", `public, max-age=${cacheTime}`);
       response.end(data);
     }
   });

@@ -1,9 +1,16 @@
 {
   "name": "node-server",
-  "version": "1.0.0",
+  "bin": {
+    "ns": "index.ts"
+  },
+  "files": [
+    "*.ts"
+  ],
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^13.7.4"
+    "@types/node": "^13.7.4",
+    "commander": "^4.1.1"
   }
 }

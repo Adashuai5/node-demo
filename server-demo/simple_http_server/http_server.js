@@ -19,7 +19,7 @@ server.on("request", (request, response) => {
       switch (request.method) {
         case "GET":
           response.statusCode = 200;
-          response.end(JSON.parse(users));
+          response.end(JSON.stringify(users));
           break;
         case "POST":
           const contentType = request.headers["content-type"];
@@ -39,6 +39,15 @@ server.on("request", (request, response) => {
           });
           break;
       }
+      break;
+    case "/test.html":
+      response.statusCode = 200;
+
+      fs.createReadStream("../hi/index").pipe(response);
+      break;
+    default:
+      response.statusCode = 404;
+      response.end("找不到该页面");
       break;
   }
 });

@@ -4,7 +4,7 @@
   "description": "相关笔记：  \r [Web服务器](https://zhuanlan.zhihu.com/p/41605733)  \r [理解JSONP 上](https://zhuanlan.zhihu.com/p/41590983)  \r [理解JSONP 下](https://zhuanlan.zhihu.com/p/41591178)  \r [AJAX是什么鬼](https://zhuanlan.zhihu.com/p/41810402)  \r [实现一个AJAX](https://zhuanlan.zhihu.com/p/41863846)\r [HTTP 学习之 Cookie](https://zhuanlan.zhihu.com/p/44615788)",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "express": "^4.16.4",
     "http-server": "^0.11.1",
     "koa": "^2.7.0",
